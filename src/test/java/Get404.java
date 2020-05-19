@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 
 import java.io.IOException;
 
-public class Get200 {
+public class Get404 {
 
     public static final String BASE_ENDPOINT = "https://api.github.com";
     CloseableHttpClient client;
@@ -29,35 +29,13 @@ public class Get200 {
     }
 
     @Test
-    public void baseUrlReturns200() throws IOException {
-        HttpGet get = new HttpGet(BASE_ENDPOINT);
+    public void nonExistingURLReturns404() throws IOException {
+        HttpGet get = new HttpGet(BASE_ENDPOINT + "/nonexistingendpoint");
 
         response = client.execute(get);
 
         int actualStatus = response.getStatusLine().getStatusCode();
 
-        Assert.assertEquals(actualStatus, 200);
-    }
-
-    @Test
-    public void rateLimitReturns200() throws IOException {
-        HttpGet get = new HttpGet(BASE_ENDPOINT + "/rate_limit");
-
-        response = client.execute(get);
-
-        int actualStatus = response.getStatusLine().getStatusCode();
-
-        Assert.assertEquals(actualStatus, 200);
-    }
-
-    @Test
-    public void searchReturns200() throws IOException {
-        HttpGet get = new HttpGet(BASE_ENDPOINT + "/search/repositories?q=java");
-
-        response = client.execute(get);
-
-        int actualStatus = response.getStatusLine().getStatusCode();
-
-        Assert.assertEquals(actualStatus, 200);
+        Assert.assertEquals(actualStatus, 404);
     }
 }
