@@ -1,5 +1,3 @@
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -11,9 +9,10 @@ import org.testng.annotations.Test;
 
 import java.io.IOException;
 
-public class Get404 {
+import static org.testng.Assert.*;
 
-    public static final String BASE_ENDPOINT = "https://api.github.com";
+public class Get404 extends BaseClass {
+
     CloseableHttpClient client;
     CloseableHttpResponse response;
 
@@ -36,6 +35,6 @@ public class Get404 {
 
         int actualStatus = response.getStatusLine().getStatusCode();
 
-        Assert.assertEquals(actualStatus, 404);
+        assertEquals(actualStatus, 404);
     }
 }
